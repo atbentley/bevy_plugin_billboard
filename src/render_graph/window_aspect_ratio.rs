@@ -9,7 +9,6 @@ use bevy::render::{
 };
 use bevy::window::{WindowCreated, WindowId, WindowResized};
 
-pub const WINDOW_ASPECT_RATIO_NODE: &str = "window_aspect_ratio";
 pub const WINDOW_ASPECT_RATIO_UNIFORM: &str = "WindowAspectRatio";
 
 #[derive(Default)]

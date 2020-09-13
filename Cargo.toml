@@ -1,6 +1,6 @@
 [package]
-name = "bevy_billboard"
-version = "0.1.0"
+name = "bevy_plugin_billboard"
+version = "0.2.0"
 authors = ["Andrew Bentley <andrew@bentley.codes>"]
 edition = "2018"
 license = "MIT"

@@ -1,10 +1,8 @@
-# bevy_billboard
+# bevy_plugin_billboard
 
 ![](assets/screenshot.png?raw=true)
 
-Adds a billboard render pipeline to bevy.
-
-Currently only supports in-world spherical billboards
+Adds a billboard render pipeline to bevy. Billboards can be coloured, textured, and either drawn with correct z-ordering, or drawn on top of other in world meshes.
 
 ## Usage
 
@@ -13,14 +11,14 @@ Add `bevy_plugin_billboard` as a dependency to `Cargo.toml`
 ```
 [dependencies]
 bevy = "0.1.3"
-bevy_billboard = { git = "https://github.com/atbentley/bevy_plugin_billboard" }
+bevy_plugin_billboard = { git = "https://github.com/atbentley/bevy_plugin_billboard" }
 ```
 
 Then register the `BillboardPlugin` plugin
 
 ```rust
 use bevy::prelude::*;
-use bevy_billboard::{BillboardComponents, BillboardPlugin};
+use bevy_plugin_billboard::{BillboardComponents, BillboardPlugin, BillboardMaterial};
 
 fn main() {
     App::build()
@@ -35,21 +33,24 @@ And finally spawn in a `BillboardComponents`:
 ```rust
 fn setup(
     mut commands: Commands,
-    mut materials: ResMut<Assets<StandardMaterial>>,
+    mut billboards: ResMut<Assets<BillboardMaterial>>,
 ) {
+    let billboard = billboard.add(BillboardMaterial {
+        albedo: Color::rgb(0.0, 0.8, 0.0),
+        ..Default::default()
+    });
     commands
         .spawn(BillboardComponents {
-          material: materials.add(Color::rgb(0.0, 0.8, 0.0).into()),
-          ..Default::default()
+            billboard,
+            ..Default::default()
         });
 }
 ```
 
-Run `examples` for a more complete example
+See `examples` for a more complete examples.
 
 ## Next
 
-- [ ] Support PBR lights
-- [ ] Option to draw billboards over other in world meshes meshes
-- [ ] Support spherical billboards
+- [ ] Support PBR lights (currently all 4 bind groups are being used: camera, window aspect, transform and billboard material)
+- [ ] Support cylindrical billboards
 - [ ] Use correct scaling (currently billboards are ~2.5x smaller than they should be)

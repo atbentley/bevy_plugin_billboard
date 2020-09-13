@@ -1,6 +1,6 @@
 use bevy::prelude::*;
 use bevy::render::mesh::shape::Cube;
-use bevy_billboard::{BillboardComponents, BillboardPlugin};
+use bevy_plugin_billboard::{BillboardComponents, BillboardMaterial, BillboardPlugin};
 
 fn main() {
     App::build()
@@ -17,21 +17,21 @@ fn setup(
     asset_server: Res<AssetServer>,
     mut meshes: ResMut<Assets<Mesh>>,
     mut materials: ResMut<Assets<StandardMaterial>>,
+    mut billboards: ResMut<Assets<BillboardMaterial>>,
     mut textures: ResMut<Assets<Texture>>,
 ) {
     let texture_handle = asset_server
         .load_sync(&mut textures, "assets/icon.png")
         .unwrap();
 
-    let material = materials.add(StandardMaterial {
+    let billboard = billboards.add(BillboardMaterial {
         albedo_texture: Some(texture_handle),
-        shaded: false,
         ..Default::default()
     });
 
     commands
         .spawn(BillboardComponents {
-            material,
+            billboard,
             translation: Translation::new(0.0, 0.0, 1.5),
             draw: Draw {
                 is_transparent: true,
@@ -51,7 +51,7 @@ fn setup(
         })
         .spawn((
             Transform::default(),
-            Translation::default(),
+            Translation::new(0.0, 0.0, 0.0),
             Rotation::default(),
             Scale::default(),
             Rotator,
