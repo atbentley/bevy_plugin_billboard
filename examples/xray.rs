@@ -32,7 +32,6 @@ fn setup(
     commands
         .spawn(BillboardComponents {
             billboard,
-            translation: Translation::new(0.0, 0.0, 1.5),
             draw: Draw {
                 is_transparent: true,
                 ..Default::default()
@@ -46,7 +45,7 @@ fn setup(
             ..Default::default()
         })
         .spawn(LightComponents {
-            translation: Translation::new(-3.0, 3.0, 4.0),
+            translation: Translation::new(-3.0, 3.0, -4.0),
             ..Default::default()
         })
         .spawn((

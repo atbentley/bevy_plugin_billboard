@@ -29,7 +29,7 @@ void main() {
     gl_Position /= gl_Position.w;
     gl_Position.xy += Vertex_Position.xy * aspect_scale * scale;
 # else
-    gl_Position.xy += Vertex_Position.xy * aspect_scale * scale;
+    gl_Position.xy += Vertex_Position.xy * aspect_scale * scale * 2.4;
 # endif
     v_Uv = Vertex_Uv;
     v_Normal = Vertex_Normal;
