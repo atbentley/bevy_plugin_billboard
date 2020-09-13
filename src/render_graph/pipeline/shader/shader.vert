@@ -21,14 +21,17 @@ layout(set = 2, binding = 0) uniform Transform {
 };
 
 void main() {
-    vec2 scale = vec2(1.0 / aspect, 1.0);
-    vec3 particleCenter_wordspace = Model[3].xyz;
-    vec3 vertexPosition_worldspace = particleCenter_wordspace;
-    gl_Position = ViewProj * vec4(vertexPosition_worldspace, 1.0f);
-    gl_Position /= gl_Position.w;
-    gl_Position.xy += Vertex_Position.xy * scale * vec2(0.05, 0.05);
+    vec2 aspect_scale = vec2(1.0 / aspect, 1.0);
+    vec2 scale = vec2(Model[0][0], Model[1][1]);
+    gl_Position = ViewProj * vec4(Model[3].xyz, 1.0f);
 
+# ifdef BILLBOARDMATERIAL_SCREEN_SPACE
+    gl_Position /= gl_Position.w;
+    gl_Position.xy += Vertex_Position.xy * aspect_scale * scale;
+# else
+    gl_Position.xy += Vertex_Position.xy * aspect_scale * scale;
+# endif
     v_Uv = Vertex_Uv;
     v_Normal = Vertex_Normal;
-    v_Position = particleCenter_wordspace + Vertex_Position;
+    v_Position = gl_Position.xyz;
 }

@@ -51,7 +51,7 @@ fn setup(
         })
         .spawn((
             Transform::default(),
-            Translation::new(0.0, 0.0, 0.0),
+            Translation::default(),
             Rotation::default(),
             Scale::default(),
             Rotator,

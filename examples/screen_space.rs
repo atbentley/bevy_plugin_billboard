@@ -26,13 +26,15 @@ fn setup(
 
     let billboard = billboards.add(BillboardMaterial {
         albedo_texture: Some(texture_handle),
+        screen_space: true,
         ..Default::default()
     });
 
     commands
         .spawn(BillboardComponents {
             billboard,
-            translation: Translation::new(0.0, 0.0, -1.5),
+            translation: Translation::new(0.0, 0.0, 1.5),
+            scale: Scale::from(0.2),
             draw: Draw {
                 is_transparent: true,
                 ..Default::default()

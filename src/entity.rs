@@ -17,6 +17,9 @@ pub struct BillboardMaterial {
     pub albedo: Color,
     #[shader_def]
     pub albedo_texture: Option<Handle<Texture>>,
+    #[render_resources(ignore)]
+    #[shader_def]
+    pub screen_space: bool,
 }
 
 impl Default for BillboardMaterial {
@@ -24,6 +27,7 @@ impl Default for BillboardMaterial {
         BillboardMaterial {
             albedo: Color::rgb(1.0, 1.0, 1.0),
             albedo_texture: None,
+            screen_space: false,
         }
     }
 }
@@ -37,6 +41,7 @@ pub struct BillboardComponents {
     pub main_pass: base::MainPass,
     pub transform: Transform,
     pub translation: Translation,
+    pub scale: Scale,
 }
 
 impl Default for BillboardComponents {
@@ -49,6 +54,7 @@ impl Default for BillboardComponents {
             main_pass: Default::default(),
             transform: Default::default(),
             translation: Default::default(),
+            scale: Default::default(),
         }
     }
 }
